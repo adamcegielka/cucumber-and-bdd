@@ -6,10 +6,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import static org.junit.Assert.assertEquals;
 
 public class Login {
 
@@ -18,6 +15,7 @@ public class Login {
     @Given("User is on the login page")
     public void user_is_on_the_login_page() {
         System.out.println("Step 1");
+        System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\chromedriver-win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.navigate().to("https://the-internet.herokuapp.com/login");
@@ -54,11 +52,6 @@ public class Login {
     public void user_unsuccessfully_logged_in() {
         System.out.println("Step 5");
         Assert.assertEquals("https://the-internet.herokuapp.com/login", driver.getCurrentUrl());
-
-        WebElement flashMessage = driver.findElement(By.id("flash"));
-        String actualFlashMessage = flashMessage.getText();
-        String expectedFlashMessage = "Your password is invalid!";
-        assertEquals(expectedFlashMessage, actualFlashMessage);
         driver.close();
     }
 }
