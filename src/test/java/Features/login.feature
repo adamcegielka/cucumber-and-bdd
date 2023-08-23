@@ -8,3 +8,10 @@ Feature: Login to the system
     And User enters correct password
     And User clicks Login button
     Then User has successfully logged in
+
+  Scenario:  Incorrect login
+    Given User is on the login page
+    When User enters a valid username
+    And User enters incorrect password
+    And User clicks Login button
+    Then User unsuccessfully logged in
