@@ -38,5 +38,6 @@ public class Login {
     public void user_has_successfully_logged_in() {
         System.out.println("Step 5");
         Assert.assertEquals("https://the-internet.herokuapp.com/secure", driver.getCurrentUrl());
+        driver.close();
     }
 }
