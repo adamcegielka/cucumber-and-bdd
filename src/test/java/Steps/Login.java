@@ -6,7 +6,10 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import static org.junit.Assert.assertEquals;
 
 public class Login {
 
@@ -38,6 +41,24 @@ public class Login {
     public void user_has_successfully_logged_in() {
         System.out.println("Step 5");
         Assert.assertEquals("https://the-internet.herokuapp.com/secure", driver.getCurrentUrl());
+        driver.close();
+    }
+
+    // Incorrect login
+    @When("User enters incorrect password")
+    public void user_enters_incorrect_password() {
+        System.out.println("Step 3");
+        driver.findElement(By.name("password")).sendKeys("incorrectPassword!");
+    }
+    @Then("User unsuccessfully logged in")
+    public void user_unsuccessfully_logged_in() {
+        System.out.println("Step 5");
+        Assert.assertEquals("https://the-internet.herokuapp.com/login", driver.getCurrentUrl());
+
+        WebElement flashMessage = driver.findElement(By.id("flash"));
+        String actualFlashMessage = flashMessage.getText();
+        String expectedFlashMessage = "Your password is invalid!";
+        assertEquals(expectedFlashMessage, actualFlashMessage);
         driver.close();
     }
 }
